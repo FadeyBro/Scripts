@@ -7,19 +7,21 @@ public class PlayerUI : MonoBehaviour
 {
     public Slider healthBar;
     public TextMeshProUGUI CoinsCounter;
-    public PlayerMovementScript player;
+
+    public Health health;
+    public CoinsCounter coins;
     private void Start()
     {
-        healthBar.maxValue = player.maxhealth;
-        healthBar.value = player.health;
-        CoinsCounter.text = "coins" + player.coins;
+        healthBar.maxValue = health.maxhealth;
+        healthBar.value = health.health;
+        CoinsCounter.text = "coins" + coins.coin;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthBar.value = player.health;
-        CoinsCounter.text = "coins" + player.coins;
+        healthBar.value = health.health;
+        CoinsCounter.text = "coins" + coins.coin;
     }
 }
