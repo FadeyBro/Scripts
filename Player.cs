@@ -5,46 +5,36 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public AudioClip damageSound;
+    public static int score;
 
-    public int health = 10;
-    public int maxhealth = 10;
+    public static List<Square> squares;
+    // Start is called before the first frame update
+    private void Awake()
+    {
+        squares = new List<Square>();
+    }
 
-    public int coin = 0;
-
-    public GameObject fireballPrefab;
-    public Transform attackPoint;
-
+    public static void Defeat()
+    {
+        score = 0;
+        Ui.Defeat();
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (squares.Count == 0)
         {
-            Instantiate(fireballPrefab, attackPoint.position, attackPoint.rotation);
-        }
-
-    }
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health > 0)
-        {
-            print("Health:" + health);
-            audioSource.PlayOneShot(damageSound);
-
-        }
-        else
-        {
-            print("You Dead");
-            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(sceneIndex);
+            Ui.Victory();
         }
     }
-     
-    public void CollectCoins()
+
+    public void Victory()
     {
-        coin += 1;
-        print("coins" + coin);
+        Ui.Victory();
+    }
+
+    public static void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
